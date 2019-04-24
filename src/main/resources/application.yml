@@ -6,7 +6,7 @@ spring:
       ddl-auto: none # we use flyway
   datasource:
     platform: postgresql
-    url: jdbc:postgresql://localhost:5432/myfinances
+    url: jdbc:postgresql://db:5432/myfinances
     database: mygfinances
     username: postgres
     password: myfinances

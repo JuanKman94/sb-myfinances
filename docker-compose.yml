@@ -9,3 +9,13 @@ services:
     environment:
       POSTGRES_DB: myfinances
       POSTGRES_PASSWORD: myfinances
+  web:
+    image: gradle:5.4-jdk8-alpine
+    command: ./gradlew bootRun
+    working_dir: /usr/src/app
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
