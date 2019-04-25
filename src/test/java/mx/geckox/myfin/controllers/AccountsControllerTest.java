@@ -15,7 +15,6 @@ import mx.geckox.myfin.repositories.AccountsRepository;
 import mx.geckox.myfin.services.AccountsService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -26,9 +25,6 @@ import org.springframework.test.web.servlet.MockMvc;
 @ExtendWith(SpringExtension.class)
 @WebMvcTest
 public class AccountsControllerTest {
-  @Mock
-  private AccountsRepository accountsRepository;
-
   @MockBean
   private AccountsService accountsService;
 
@@ -45,9 +41,9 @@ public class AccountsControllerTest {
 
     AccountDto payload = new AccountDto(name, balance, color);
     Account account = new Account(name, balance, color);
-
     account.setId(123L);
-    when(accountsRepository.save(isA(Account.class))).thenReturn(account);
+
+    when(accountsService.create(isA(AccountDto.class))).thenReturn(account);
 
     mockMvc.perform(
         post("/accounts/")
@@ -58,6 +54,6 @@ public class AccountsControllerTest {
       .andExpect(jsonPath("$.name", is(account.getName())))
       .andExpect(jsonPath("$.id", is(account.getId().intValue())));
 
-    verify(accountsRepository, atLeastOnce()).save(isA(Account.class));
+    verify(accountsService, atLeastOnce()).create(isA(AccountDto.class));
   }
 }
