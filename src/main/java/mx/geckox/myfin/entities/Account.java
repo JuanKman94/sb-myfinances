@@ -17,7 +17,13 @@ public class Account {
 
   private String name;
 
-  private Float balance;
+  private Double balance;
 
   private String color;
+
+  public Account(String name, Double balance, String color) {
+    this.name = name;
+    this.balance = balance;
+    this.color = color;
+  }
 }

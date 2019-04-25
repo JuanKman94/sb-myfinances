@@ -1,5 +1,6 @@
 package mx.geckox.myfin.controllers;
 
+import mx.geckox.myfin.api.AccountDto;
 import mx.geckox.myfin.entities.Account;
 import mx.geckox.myfin.repositories.AccountsRepository;
 import org.apache.logging.log4j.Logger;
@@ -22,13 +23,14 @@ public class AccountsController {
   private static final Logger log = LogManager.getLogger(AccountsController.class);
 
   @RequestMapping("/")
-  public @ResponseBody Iterable<Account> all() {
+  public Iterable<Account> all() {
     return accountsRepository.findAll();
   }
 
   @RequestMapping(value = "/", method = RequestMethod.POST)
-  public @ResponseBody ResponseEntity<?> create(@RequestBody Account input) {
-    log.info("Creating account with {}", input);
-    return new ResponseEntity<Account>(this.accountsRepository.save(input), HttpStatus.OK);
+  public ResponseEntity<?> create(@RequestBody AccountDto input) {
+    Account account = new Account(input.getName(), input.getBalance(), input.getColor());
+    log.info("Creating account with {}", account);
+    return new ResponseEntity<Account>(this.accountsRepository.save(account), HttpStatus.OK);
   }
 }
