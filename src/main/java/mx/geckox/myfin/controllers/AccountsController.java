@@ -3,6 +3,7 @@ package mx.geckox.myfin.controllers;
 import mx.geckox.myfin.api.AccountDto;
 import mx.geckox.myfin.entities.Account;
 import mx.geckox.myfin.repositories.AccountsRepository;
+import mx.geckox.myfin.services.AccountsService;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,19 +19,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path = "/accounts")
 public class AccountsController {
   @Autowired
-  private AccountsRepository accountsRepository;
+  private AccountsService accountsService;
 
   private static final Logger log = LogManager.getLogger(AccountsController.class);
 
   @RequestMapping("/")
   public Iterable<Account> all() {
-    return accountsRepository.findAll();
+    return this.accountsService.all();
   }
 
   @RequestMapping(value = "/", method = RequestMethod.POST)
-  public ResponseEntity<?> create(@RequestBody AccountDto input) {
-    Account account = new Account(input.getName(), input.getBalance(), input.getColor());
-    log.info("Creating account with {}", account);
-    return new ResponseEntity<Account>(this.accountsRepository.save(account), HttpStatus.OK);
+  public ResponseEntity<?> create(@RequestBody AccountDto payload) {
+    log.info("Creating account with {}", payload);
+    return new ResponseEntity<Account>(this.accountsService.create(payload), HttpStatus.OK);
   }
 }
