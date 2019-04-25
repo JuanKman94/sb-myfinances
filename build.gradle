@@ -12,6 +12,11 @@ apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
+ext.springBootVersion = '2.0.5.RELEASE'
+ext.gsonVersion = '2.8.2'
+ext.hibernateVersion = '6.0.16.Final'
+ext.glassfishVersion = '3.0.1-b09'
+
 bootJar {
   baseName = 'geckox-myfinances'
     version =  '0.0.1'
@@ -25,22 +30,36 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 dependencies {
-  compile('org.springframework.boot:spring-boot-starter-web')
-  compile('org.springframework.boot:spring-boot-starter-log4j2')
+  compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
+  compile("org.springframework.boot:spring-boot-starter-log4j2")
+  compile("com.google.code.gson:gson:${gsonVersion}")
+  compile("org.hibernate.validator:hibernate-validator-cdi:${hibernateVersion}")
+  compile("org.glassfish:javax.el:${glassfishVersion}")
 
   // JPA Data (We are going to use Repositories, Entities, Hibernate, etc...)
-  compile('org.springframework.boot:spring-boot-starter-data-jpa')
-  compile('org.postgresql:postgresql')
-  compile('org.flywaydb:flyway-core')
+  compile("org.springframework.boot:spring-boot-starter-data-jpa")
+  compile("org.postgresql:postgresql")
+  compile("org.flywaydb:flyway-core")
 
-  compileOnly('org.projectlombok:lombok')
-  annotationProcessor('org.projectlombok:lombok')
+  compileOnly("org.projectlombok:lombok")
 
-  testCompile('org.springframework.boot:spring-boot-starter-test')
+  annotationProcessor("org.projectlombok:lombok")
+
+  testCompile("org.springframework.boot:spring-boot-starter-test")
+
+  testImplementation("org.junit.jupiter:junit-jupiter:5.4.2")
 }
 
 configurations {
   all {
     exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    exclude group: 'org.springframework.boot', module: 'junit'
+  }
+}
+
+test {
+  useJUnitPlatform()
+  testLogging {
+    events "passed", "skipped", "failed"
   }
 }
