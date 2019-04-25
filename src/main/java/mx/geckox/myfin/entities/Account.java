@@ -1,5 +1,7 @@
 package mx.geckox.myfin.entities;
 
+import java.sql.Timestamp;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GenerationType;
 import javax.persistence.GeneratedValue;
@@ -20,6 +22,13 @@ public class Account {
   private Double balance;
 
   private String color;
+
+  @Column(insertable = false, updatable = false)
+  private Timestamp createdAt;
+
+  private Timestamp updatedAt;
+
+  public Account() {}
 
   public Account(String name, Double balance, String color) {
     this.name = name;

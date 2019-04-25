@@ -1,6 +1,7 @@
 package mx.geckox.myfin.api;
 
 import lombok.Data;
+import java.sql.Timestamp;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Min;
@@ -17,6 +18,12 @@ public class AccountDto {
 
   @Nullable
   private String color;
+
+  private Timestamp createdAt;
+
+  private Timestamp updatedAt;
+
+  public AccountDto() {}
 
   public AccountDto(String name, Double balance, String color) {
     this.name = name;
