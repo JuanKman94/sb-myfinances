@@ -1,8 +1,10 @@
 package mx.geckox.myfin.controllers;
 
 import static org.hamcrest.Matchers.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.isA;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -10,6 +12,7 @@ import com.google.gson.Gson;
 import mx.geckox.myfin.api.AccountDto;
 import mx.geckox.myfin.entities.Account;
 import mx.geckox.myfin.repositories.AccountsRepository;
+import mx.geckox.myfin.services.AccountsService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +26,7 @@ import org.springframework.test.web.servlet.MockMvc;
 @WebMvcTest
 public class AccountsControllerTest {
   @MockBean
-  private AccountsRepository accountsRepository;
+  private AccountsService accountsService;
 
   @Autowired
   private MockMvc mockMvc;
@@ -38,9 +41,9 @@ public class AccountsControllerTest {
 
     AccountDto payload = new AccountDto(name, balance, color);
     Account account = new Account(name, balance, color);
-
     account.setId(123L);
-    when(accountsRepository.save(isA(Account.class))).thenReturn(account);
+
+    when(accountsService.create(isA(AccountDto.class))).thenReturn(account);
 
     mockMvc.perform(
         post("/accounts/")
@@ -51,5 +54,6 @@ public class AccountsControllerTest {
       .andExpect(jsonPath("$.name", is(account.getName())))
       .andExpect(jsonPath("$.id", is(account.getId().intValue())));
 
+    verify(accountsService, atLeastOnce()).create(isA(AccountDto.class));
   }
 }
