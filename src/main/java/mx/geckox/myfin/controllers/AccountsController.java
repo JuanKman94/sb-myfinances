@@ -23,7 +23,7 @@ public class AccountsController {
 
   private static final Logger log = LogManager.getLogger(AccountsController.class);
 
-  @RequestMapping("/")
+  @RequestMapping(value = "/", method = RequestMethod.GET)
   public Iterable<Account> all() {
     return this.accountsService.all();
   }

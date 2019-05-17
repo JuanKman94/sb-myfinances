@@ -19,7 +19,7 @@ public class AccountsService {
     log.info("creating account {}", input);
     Account account = new Account(input.getName(), input.getBalance(), input.getColor());
     log.info("saving account {}", account);
-    
+
     return this.accountsRepository.save(account);
   }
 

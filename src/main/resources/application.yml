@@ -1,5 +1,10 @@
 ---
 
+mx:
+  geckox:
+    myfin:
+      version: 0.0.1
+
 spring:
   jpa:
     hibernate:
