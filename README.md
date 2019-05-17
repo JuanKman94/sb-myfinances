@@ -6,6 +6,7 @@ Use docker:
 
 ```bash
 $ docker-compose up -d web
+$ open http://localhost:8080/swagger-ui.html
 ```
 
 ## Resources
