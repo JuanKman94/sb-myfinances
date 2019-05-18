@@ -1,5 +1,6 @@
 package mx.geckox.myfin.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,9 +24,16 @@ public class Account {
 
   private String color;
 
+  /**
+   * Pattern uses {@link java.text.SimpleDateFormat}
+   *
+   * {@see https://docs.oracle.com/javase/8/docs/api/java/text/SimpleDateFormat.html}
+   */
+  @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
   @Column(insertable = false, updatable = false)
   private Timestamp createdAt;
 
+  @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
   private Timestamp updatedAt;
 
   public Account() {}

@@ -30,6 +30,17 @@ repositories {
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
+configurations {
+  all {
+    exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    exclude group: 'org.springframework.boot', module: 'junit'
+  }
+  developmentOnly
+  runtimeClasspath {
+    extendsFrom developmentOnly
+  }
+}
+
 dependencies {
   compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
   compile("org.springframework.boot:spring-boot-starter-log4j2")
@@ -44,6 +55,8 @@ dependencies {
   compile("org.postgresql:postgresql")
   compile("org.flywaydb:flyway-core")
 
+  developmentOnly("org.springframework.boot:spring-boot-devtools")
+
   compileOnly("org.projectlombok:lombok")
 
   annotationProcessor("org.projectlombok:lombok")
@@ -51,13 +64,6 @@ dependencies {
   testCompile("org.springframework.boot:spring-boot-starter-test")
 
   testImplementation("org.junit.jupiter:junit-jupiter:5.4.2")
-}
-
-configurations {
-  all {
-    exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
-    exclude group: 'org.springframework.boot', module: 'junit'
-  }
 }
 
 test {
