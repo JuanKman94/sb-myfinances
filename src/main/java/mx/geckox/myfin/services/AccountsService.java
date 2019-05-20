@@ -1,6 +1,6 @@
 package mx.geckox.myfin.services;
 
-import mx.geckox.myfin.api.AccountDto;
+import mx.geckox.myfin.api.AccountRequest;
 import mx.geckox.myfin.entities.Account;
 import mx.geckox.myfin.exceptions.ModelNotFoundException;
 import mx.geckox.myfin.repositories.AccountsRepository;
@@ -26,7 +26,7 @@ public class AccountsService {
     return accountsRepository.findAll();
   }
 
-  public Account create(AccountDto input) {
+  public Account create(AccountRequest input) {
     log.info("creating account {}", input);
     Account account = new Account(input.getName(), input.getBalance(), input.getColor());
     log.info("saving account {}", account);
@@ -34,7 +34,7 @@ public class AccountsService {
     return this.accountsRepository.save(account);
   }
 
-  public Account update(Long id, AccountDto input) {
+  public Account update(Long id, AccountRequest input) {
     Account account = this.accountsRepository.findById(id).orElseThrow(ModelNotFoundException::new);
 
     account.setName(input.getName());

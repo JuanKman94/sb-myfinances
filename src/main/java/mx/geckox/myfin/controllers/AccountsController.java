@@ -1,6 +1,6 @@
 package mx.geckox.myfin.controllers;
 
-import mx.geckox.myfin.api.AccountDto;
+import mx.geckox.myfin.api.AccountRequest;
 import mx.geckox.myfin.entities.Account;
 import mx.geckox.myfin.exceptions.ModelNotFoundException;
 import mx.geckox.myfin.repositories.AccountsRepository;
@@ -31,7 +31,7 @@ public class AccountsController {
   }
 
   @RequestMapping(value = "/", method = RequestMethod.POST)
-  public ResponseEntity<?> create(@RequestBody AccountDto payload) {
+  public ResponseEntity<?> create(@RequestBody AccountRequest payload) {
     log.info("Creating account with {}", payload);
     return new ResponseEntity<>(this.accountsService.create(payload), HttpStatus.OK);
   }
@@ -39,7 +39,7 @@ public class AccountsController {
   @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
   public ResponseEntity<?> update(
       @PathVariable Long id,
-      @RequestBody AccountDto payload
+      @RequestBody AccountRequest payload
   ) throws ModelNotFoundException {
     return new ResponseEntity<>(this.accountsService.update(id, payload), HttpStatus.OK);
   }

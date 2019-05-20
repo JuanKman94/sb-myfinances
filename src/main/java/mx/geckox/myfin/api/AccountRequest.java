@@ -7,7 +7,7 @@ import javax.validation.constraints.Min;
 import org.springframework.lang.Nullable;
 
 @Data
-public class AccountDto {
+public class AccountRequest {
   @NotEmpty
   private String name;
 
@@ -18,9 +18,9 @@ public class AccountDto {
   @Nullable
   private String color;
 
-  public AccountDto() {}
+  public AccountRequest() {}
 
-  public AccountDto(String name, Double balance, String color) {
+  public AccountRequest(String name, Double balance, String color) {
     this.name = name;
     this.balance = balance;
     this.color = color;
