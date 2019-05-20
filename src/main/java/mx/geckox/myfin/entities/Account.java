@@ -12,11 +12,11 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table()
+@Table
 public class Account {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  private Long accountId;
 
   private String name;
 
