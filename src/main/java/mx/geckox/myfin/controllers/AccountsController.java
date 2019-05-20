@@ -36,7 +36,7 @@ public class AccountsController {
     return new ResponseEntity<>(this.accountsService.create(payload), HttpStatus.OK);
   }
 
-  @RequestMapping(value = "/{id}", method = { RequestMethod.PATCH, RequestMethod.PUT })
+  @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
   public ResponseEntity<?> update(
       @PathVariable Long id,
       @RequestBody AccountDto payload

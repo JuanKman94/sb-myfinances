@@ -15,3 +15,8 @@ spring:
     database: mygfinances
     username: postgres
     password: myfinances
+  devtools:
+    livereload:
+      enabled: false
+    restart:
+      enabled: true
