@@ -12,16 +12,16 @@ import lombok.Data;
 
 @Data
 @Entity
-public class Account {
+public class Category {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long accountId;
+  private Long categoryId;
+
+  private Long parentCategoryId;
 
   private String name;
 
-  private Double balance;
-
-  private String color;
+  private String icon;
 
   /**
    * Pattern uses {@link java.text.SimpleDateFormat}
@@ -35,11 +35,16 @@ public class Account {
   @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
   private Timestamp updatedAt;
 
-  public Account() {}
+  public Category() {}
 
-  public Account(String name, Double balance, String color) {
+  public Category(String name, String icon) {
     this.name = name;
-    this.balance = balance;
-    this.color = color;
+    this.icon = icon;
+  }
+
+  public Category(Long parentCategoryId, String name, String icon) {
+    this.parentCategoryId = parentCategoryId;
+    this.name = name;
+    this.icon = icon;
   }
 }
